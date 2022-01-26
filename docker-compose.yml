@@ -1,11 +1,30 @@
 version: "3"
 
+networks:
+  web:
+    external: true
+
 services:
+  caddy:
+    container_name: caddy
+    image: caddy:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /opt/caddy/data:/data
+      - /opt/caddy/config:/config
+    networks:
+      - web
+
   hdns_proxy:
     container_name: hdns_proxy
     image: hdns_proxy:v0.1.0
     restart: unless-stopped
-    ports:
-      - "80:80"
+    depends_on: caddy
+    networks:
+      - web
     volumes:
-      - /home/ubuntu/projects/hdns_proxy/config.yaml:/config.yaml
+      - <PATH_TO_CONFIG>/config.yaml:/config.yaml
