@@ -62,4 +62,29 @@ hdns.co {
 }
 ```
 
+## Example Caddyfile w/ Cloudflare & Nested Subdomains (HTTP-Only)
+
+```
+{
+    # Global options block. Entirely optional, https is on by default
+    # Optional email key for lets encrypt
+    email shrunbr@shrunbr.dev
+    # Optional staging lets encrypt for testing. Comment out for production.
+    #acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+    acme_dns cloudflare <CLOUDFLARE_API_KEY>
+}
+hdns.co {
+    reverse_proxy hdns_proxy:80
+}
+*.hdns.co {
+    reverse_proxy hdns_proxy:80
+}
+http://*.*.hdns.co {
+    reverse_proxy hdns_proxy:80
+}
+http://*.*.*.hdns.co {
+    reverse_proxy hdns_proxy:80
+}
+```
+
 *hdns_proxy was inspired by angrymouses [hns-bridge](https://github.com/angrymouse/hns-bridge)*
