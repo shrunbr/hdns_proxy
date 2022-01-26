@@ -61,3 +61,5 @@ hdns.co {
     reverse_proxy hdns_proxy:80
 }
 ```
+
+*hdns_proxy was inspired by angrymouses [hns-bridge](https://github.com/angrymouse/hns-bridge)*
