@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  hdns_proxy:
+    container_name: hdns_proxy
+    image: hdns_proxy:v0.1.0
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - /home/ubuntu/projects/hdns_proxy/config.yaml:/config.yaml
