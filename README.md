@@ -4,7 +4,28 @@ hdns_proxy is a python-based Handshake DNS reverse proxy using Flask.
 
 ## Getting Started
 
-:construction: **Coming Soon** :construction:
+To get started using hdns_proxy, you'll need to first clone this repo.
+
+Once this repo has been cloned please copy the `config_example.yaml` file into `config.yaml` and update accordingly per the options below.
+
+```
+secretKey: Update this with a randomly generated string at least 32 characters in length. This is Flasks super secret key
+rootDomain: This is the domain you own to host this proxy (ex. hdns.co)
+bindAddress: This should typically stay 0.0.0.0 however, if you're running this on a server you can change it to the server interface IP you want to bind to
+rootRedirect: This is the URL which the server should redirect your root domain to (ex. hdns.co redirects to this repo)
+port: This should typically stay as port 80, this tells Flask which port to run the webserver on
+nameservers: This is a list of nameservers which are able to resolve Handshake domains. If you change them from their default, ensure whichever DNS servers you use are able to resolve Handshake DNS names.
+```
+
+## Running hdns_proxy
+
+There are two different ways to run hdns_proxy.
+
+1. You can close this repo, install the requirements.txt and run the `app.py` script on any machine. This will launch the webserver and proxy directly.
+
+2. You can build the docker image with the included `Dockerfile`.
+
+To build the docker image, clone the repo, ensure you have Docker installed and run `docker build -t hdns_proxy:latest .` from within cloned directory.
 
 ## Using Caddy
 
@@ -20,4 +41,23 @@ RUN xcaddy build  --with github.com/caddy-dns/cloudflare
 FROM caddy:latest
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+```
+
+## Example Caddyfile w/ Cloudflare
+
+```
+{
+    # Global options block. Entirely optional, https is on by default
+    # Optional email key for lets encrypt
+    email shrunbr@shrunbr.dev
+    # Optional staging lets encrypt for testing. Comment out for production.
+    #acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+    acme_dns cloudflare <CLOUDFLARE_API_KEY>
+}
+hdns.co {
+    reverse_proxy hdns_proxy:80
+}
+*.hdns.co {
+    reverse_proxy hdns_proxy:80
+}
 ```
