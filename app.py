@@ -6,6 +6,7 @@ from flask import Flask, redirect, jsonify
 config = yaml.safe_load(open('config.yaml'))
 secretKey = config['secretKey']
 rootDomain = config['rootDomain']
+bindAddress = config['bindAddress']
 rootRedirect = config['rootRedirect']
 port = config['port']
 nameservers = config['nameservers']
@@ -33,5 +34,5 @@ def hnsredirect(hnsdomain):
 
 if __name__ == '__main__':
     from waitress import serve
-    print(f"Waitress WSGI Server Started...({rootDomain}:{port})")
-    serve(app, host=rootDomain, port=port)
+    print(f"Waitress WSGI Server Started...({bindAddress}:{port})")
+    serve(app, host=bindAddress, port=port)
