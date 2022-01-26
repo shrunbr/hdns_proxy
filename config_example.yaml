@@ -1,0 +1,7 @@
+secretKey: <SUPERSECRETFLASKKEY>
+rootDomain: hdns.co
+rootRedirect: https://www.github.com/shrunbr
+port: 80
+nameservers:
+  - 103.196.38.38
+  - 103.196.38.39
