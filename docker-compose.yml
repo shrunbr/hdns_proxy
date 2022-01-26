@@ -21,7 +21,7 @@ services:
 
   hdns_proxy:
     container_name: hdns_proxy
-    image: hdns_proxy:v0.1.0
+    image: hdns_proxy:latest
     restart: unless-stopped
     depends_on: caddy
     networks:
