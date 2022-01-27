@@ -29,8 +29,7 @@ def hnsredirect(hnsdomain):
     for a in answer:
         endpoint = a.to_text()
     headers = {'Host': hnsdomain}
-    hns_req = requests.request('GET', "http://" + endpoint, headers=headers, allow_redirects=True, stream=True)
-    return hns_req.content
+    return requests.request('GET', "http://" + endpoint, headers=headers, allow_redirects=True, stream=True).content
 
 if __name__ == '__main__':
     import fastwsgi
