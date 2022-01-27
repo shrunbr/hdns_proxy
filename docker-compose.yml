@@ -23,7 +23,8 @@ services:
     container_name: hdns_proxy
     image: ghcr.io/shrunbr/hdns_proxy:stable
     restart: unless-stopped
-    depends_on: caddy
+    depends_on: 
+      - caddy
     networks:
       - web
     volumes:
