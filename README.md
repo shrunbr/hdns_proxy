@@ -97,5 +97,6 @@ http://*.*.*.hdns.co {
     reverse_proxy hdns_proxy:80
 }
 ```
+## Thanks!
 
-*hdns_proxy was inspired by angrymouses [hns-bridge](https://github.com/angrymouse/hns-bridge)*
+Thanks to [angrymouse](https://github.com/angrymouse/) for the inspiration from [hns-bridge](https://github.com/angrymouse/hns-bridge) and catching a caching issue!
