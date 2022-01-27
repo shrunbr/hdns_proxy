@@ -5,6 +5,10 @@
 
 hdns_proxy is a python-based Handshake DNS reverse proxy using Flask.
 
+## Demo
+
+Interested in checking out how fast this is? Just do `<yourhnsname>.hdns.co` and watch your site load at *BLAZING* fast speeds.
+
 ## Getting Started
 
 To get started using hdns_proxy, you'll need to first clone this repo.
