@@ -21,8 +21,6 @@ jobs:
         install: true
     - name: Build AMD64 Docker image
       run: docker build --platform=linux/amd64 --load -t ghcr.io/$GITHUB_REPOSITORY:stable .
-    - name: Build ARM64v8 Docker image
-      run: docker build --platform=linux/arm64 --load -t ghcr.io/$GITHUB_REPOSITORY:stable-arm64v8 -f Dockerfile.arm64v8 .
     - name: Login to GHCR.IO
       run: docker login --username=shrunbr --password=$GITHUB_TOKEN ghcr.io
     - name: Release Stable
