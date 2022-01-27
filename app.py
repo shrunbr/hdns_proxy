@@ -33,6 +33,5 @@ def hnsredirect(hnsdomain):
     return hns_req.content
 
 if __name__ == '__main__':
-    from waitress import serve
-    print(f"Waitress WSGI Server Started...({bindAddress}:{port})")
-    serve(app, host=bindAddress, port=port)
+    import fastwsgi
+    fastwsgi.run(wsgi_app=app, host=bindAddress, port=port)
