@@ -27,4 +27,3 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/v')
       run: |
         docker push ghcr.io/$GITHUB_REPOSITORY:stable
-        docker push ghcr.io/$GITHUB_REPOSITORY:stable-arm64v8
