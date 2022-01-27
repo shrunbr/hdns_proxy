@@ -25,7 +25,11 @@ There are two different ways to run hdns_proxy.
 
 2. You can build the docker image with the included `Dockerfile`.
 
-To build the docker image, clone the repo, ensure you have Docker installed and run `docker build -t hdns_proxy:latest .` from within cloned directory.
+To build the docker image, clone the repo, ensure you have Docker installed and run `docker build -t hdns_proxy:stable .` from within cloned directory.
+
+3. You can use our pre-built docker image available on [ghcr.io](https://github.com/shrunbr/hdns_proxy/pkgs/container/hdns_proxy)
+
+This docker image can be referenced in `docker-compose.yml` files by setting the image to `ghcr.io/shrunbr/hdns_proxy:stable` (see our provided `docker-compose.yml` file for reference).
 
 ## Using Caddy
 
