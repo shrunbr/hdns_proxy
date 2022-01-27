@@ -1,0 +1,32 @@
+name: Build/Release Stable
+
+on:
+  release:
+    types: [ published ]
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+jobs:
+  build-release-stable:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Master Branch
+      uses: actions/checkout@v2
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Setup BuildX
+      uses: docker/setup-buildx-action@v1
+      id: buildx
+      with:
+        install: true
+    - name: Build AMD64 Docker image
+      run: docker build --platform=linux/amd64 --load -t ghcr.io/$GITHUB_REPOSITORY:stable .
+    - name: Build ARM64v8 Docker image
+      run: docker build --platform=linux/arm64 --load -t ghcr.io/$GITHUB_REPOSITORY:stable-arm64v8 -f Dockerfile.arm64v8 .
+    - name: Login to GHCR.IO
+      run: docker login --username=shrunbr --password=$GITHUB_TOKEN ghcr.io
+    - name: Release Stable
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: |
+        docker push ghcr.io/$GITHUB_REPOSITORY:stable
+        docker push ghcr.io/$GITHUB_REPOSITORY:stable-arm64v8
