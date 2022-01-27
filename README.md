@@ -1,4 +1,7 @@
 # hdns_proxy
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
+[![Build/Release Stable](https://github.com/shrunbr/hdns_proxy/actions/workflows/build.yml/badge.svg?branch=v0.2.0)](https://github.com/shrunbr/hdns_proxy/actions/workflows/build.yml)
 
 hdns_proxy is a python-based Handshake DNS reverse proxy using Flask.
 
