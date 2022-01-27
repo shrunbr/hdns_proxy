@@ -153,3 +153,4 @@ cython_debug/
 
 # Custom
 config.yaml
+secure.yaml
