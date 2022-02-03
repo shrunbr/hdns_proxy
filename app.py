@@ -29,7 +29,19 @@ def hnsredirect(hnsdomain):
     for a in answer:
         endpoint = a.to_text()
     headers = {'Host': hnsdomain}
-    return requests.request('GET', "http://" + endpoint, headers=headers, allow_redirects=True, stream=True).content
+    url = f"http://{endpoint}"
+    return requests.request('GET', url, headers=headers, allow_redirects=True, stream=True).content
+
+@app.route("/<path:path>", subdomain="<hnsdomain>")
+def hnsredirect_path(hnsdomain, path):
+    resolver = dns.resolver.Resolver()
+    resolver.nameservers = nameservers
+    answer = resolver.resolve(hnsdomain)
+    for a in answer:
+        endpoint = a.to_text()
+    headers = {'Host': hnsdomain}
+    url = f"http://{endpoint}/{path}"
+    return requests.request('GET', url, headers=headers, allow_redirects=True, stream=True).content
 
 if __name__ == '__main__':
     import fastwsgi
