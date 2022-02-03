@@ -15,7 +15,9 @@ To get started using hdns_proxy, I recommend using docker. Please check out our 
 
 ## Support The Dev! :heart:
 
-I very much appreciate you wanting to support me in my efforts! HNS can be donated to my wallet at `hs1qdnac0vrcjywvfdltcn973jf5m36c2tqt0w8aj9`. I'll also soon have a list of domains which can be purchased as well if you want to go down that route.
+I very much appreciate you wanting to support me in my efforts! HNS can be donated to my wallet at `hs1qdnac0vrcjywvfdltcn973jf5m36c2tqt0w8aj9`.
+
+Check out my portfolio at https://x000x.hdns.co or x000x/
 
 Thank you very much for your contributions and helping run hdns.co!
 
