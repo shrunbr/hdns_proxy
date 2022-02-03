@@ -1,7 +1,7 @@
 import yaml
 import dns.resolver
 import requests
-from flask import Flask, redirect, jsonify
+from flask import Flask, redirect, jsonify, stream_with_context, request
 
 config = yaml.safe_load(open('config.yaml'))
 secretKey = config['secretKey']
@@ -21,7 +21,7 @@ app.config.update(
 def index():
     return redirect(rootRedirect)
 
-@app.route("/", subdomain="<hnsdomain>")
+@app.route("/", subdomain="<hnsdomain>", methods=['POST', 'GET'])
 def hnsredirect(hnsdomain):
     resolver = dns.resolver.Resolver()
     resolver.nameservers = nameservers
@@ -29,10 +29,11 @@ def hnsredirect(hnsdomain):
     for a in answer:
         endpoint = a.to_text()
     headers = {'Host': hnsdomain}
+    args = request.args.to_dict()
     url = f"http://{endpoint}"
-    return requests.request('GET', url, headers=headers, allow_redirects=True, stream=True).content
+    return requests.request('GET', url, headers=headers, allow_redirects=True, stream=True, params=args).content
 
-@app.route("/<path:path>", subdomain="<hnsdomain>")
+@app.route("/<path:path>", subdomain="<hnsdomain>", methods=['POST', 'GET'])
 def hnsredirect_path(hnsdomain, path):
     resolver = dns.resolver.Resolver()
     resolver.nameservers = nameservers
@@ -40,8 +41,9 @@ def hnsredirect_path(hnsdomain, path):
     for a in answer:
         endpoint = a.to_text()
     headers = {'Host': hnsdomain}
+    args = request.args.to_dict()
     url = f"http://{endpoint}/{path}"
-    return requests.request('GET', url, headers=headers, allow_redirects=True, stream=True).content
+    return requests.request('GET', url, headers=headers, allow_redirects=True, stream=True, params=args).content
 
 if __name__ == '__main__':
     import fastwsgi
