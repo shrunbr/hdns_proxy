@@ -1,7 +1,7 @@
 import yaml
 import dns.resolver
 import requests
-from flask import Flask, redirect, jsonify, stream_with_context, request
+from flask import Flask, redirect, request, render_template, url_for    
 
 config = yaml.safe_load(open('config.yaml'))
 secretKey = config['secretKey']
@@ -25,7 +25,10 @@ def index():
 def hnsredirect(hnsdomain):
     resolver = dns.resolver.Resolver()
     resolver.nameservers = nameservers
-    answer = resolver.resolve(hnsdomain)
+    try:
+        answer = resolver.resolve(hnsdomain)
+    except dns.resolver.NXDOMAIN:
+        return render_template('non_existent_query.html', domain=hnsdomain, rootRedirect=rootRedirect)
     for a in answer:
         endpoint = a.to_text()
     headers = {'Host': hnsdomain}
@@ -37,7 +40,10 @@ def hnsredirect(hnsdomain):
 def hnsredirect_path(hnsdomain, path):
     resolver = dns.resolver.Resolver()
     resolver.nameservers = nameservers
-    answer = resolver.resolve(hnsdomain)
+    try:
+        answer = resolver.resolve(hnsdomain)
+    except dns.resolver.NXDOMAIN:
+        return render_template('non_existent_query.html', domain=hnsdomain, rootRedirect=rootRedirect)
     for a in answer:
         endpoint = a.to_text()
     headers = {'Host': hnsdomain}
